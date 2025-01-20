@@ -18,7 +18,7 @@ containerName = "contenedorinversionsestat"
 Arxius_processats=[]
 app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
 
-@app.route(route="estado/{Year_global}", auth_level=func.AuthLevel.ANONYMOUS)
+@app.route(route="estado", auth_level=func.AuthLevel.ANONYMOUS)
 def main_estado(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Estado HTTP trigger.')
 

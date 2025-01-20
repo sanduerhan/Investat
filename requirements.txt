@@ -3,3 +3,10 @@
 # Manually managing azure-functions-worker may cause unexpected issues
 
 azure-functions
+Flask==2.0.2
+werkzeug===2.2.2
+azure-storage-blob==12.9.0
+azure-identity
+pandas
+Office365-REST-Python-Client
+openpyxl
