@@ -35,12 +35,7 @@ jobs:
     - name: 'Checkout GitHub Action'
       uses: actions/checkout@v4
 
-    # Azure login using Publish Profile secret
-    - name: 'Login to Azure'
-      uses: azure/login@v1
-      with:
-        publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}  # The secret that contains your publish profile XML file
-
+    # Setup Python environment
     - name: Setup Python ${{ env.PYTHON_VERSION }} Environment
       uses: actions/setup-python@v4
       with:
@@ -54,12 +49,15 @@ jobs:
         pip install -r requirements.txt --target=".python_packages/lib/site-packages"
         popd
 
-    - name: 'Run Azure Functions Action'
+    # Deploy to Azure using the publish profile (no need for azure/login)
+    - name: 'Deploy to Azure Function App'
       uses: Azure/functions-action@v1
       id: fa
       with:
         app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
         package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+        publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}  # This is the publish profile secret
         scm-do-build-during-deployment: true
+        enable-oryx-build: true
         enable-oryx-build: true
 
